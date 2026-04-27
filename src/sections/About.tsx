@@ -45,7 +45,7 @@ export function About() {
               Currently midway through my Bachelor's in Computer Science at the University of Sargodha, I bridge the gap between academic theory and practical, real-world application. I specialize in building web applications from the ground up, utilizing <strong className="text-zinc-900 dark:text-white font-medium">React</strong> for dynamic frontends and <strong className="text-zinc-900 dark:text-white font-medium">Node.js</strong> for backend logic.
             </p>
             <p>
-              I believe in writing clean, maintainable code and am constantly exploring new technologies. My immediate focus is mastering advanced web patterns while progressively stepping into the world of Mobile App Development.
+              I believe in writing clean, maintainable code and I'm constantly exploring new technologies. My immediate focus is mastering advanced web patterns while progressively stepping into the world of Mobile App Development.
             </p>
           </motion.div>
 
