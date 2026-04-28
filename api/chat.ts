@@ -28,7 +28,7 @@ export default async function handler(request: Request) {
     history.push({ role: 'user', parts: [{ text: newMessage }] });
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash', // Stable, fast, cost-effective
+      model: 'gemini-2.5-flash', // Stable, fast, cost-effective
       contents: history,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
