@@ -1,9 +1,6 @@
 // api/chat.ts - Vercel Serverless Function
 import { GoogleGenAI } from '@google/genai';
 
-export const config = {
-  runtime: 'edge', // Use Edge Runtime for faster cold starts
-};
 
 const SYSTEM_INSTRUCTION = `
 You are the personal AI assistant for Ahmad Ibrahim, a Web Developer (React + Node.js) and BS Computer Science student (2024-2028).
