@@ -19,10 +19,16 @@ export default async function handler(request: Request) {
   try {
     const { messages, newMessage } = await request.json();
     
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return new Response(
+        JSON.stringify({ error: 'GEMINI_API_KEY is completely missing from Vercel Environment Variables! Please add it in your Vercel Dashboard.' }),
+        { headers: { 'Content-Type': 'application/json' }, status: 500 }
+      );
+    }
+
     // ✅ API key is SAFE here - runs on server
-    const ai = new GoogleGenAI({ 
-      apiKey: process.env.GEMINI_API_KEY! 
-    });
+    const ai = new GoogleGenAI({ apiKey });
 
     // Build conversation history
     const history = messages.map((m: any) => ({
