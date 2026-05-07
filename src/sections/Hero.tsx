@@ -5,31 +5,17 @@ import ahmadImage from "../components/assets/images/ahmad.jpeg";
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Abstract Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse" />
         <div
           className="absolute top-1/3 right-1/4 w-[28rem] h-[28rem] bg-indigo-500/10 dark:bg-indigo-600/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse"
-          style={{ animationDelay: "2s" }}
+          style={{ animationDelay: "1s" }}
         />
       </div>
 
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <div className="flex flex-col-reverse lg:flex-row items-center gap-16 lg:gap-24">
-          {/* Text Content */}
           <div className="flex-1 text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card mb-6"
-            >
-              <Terminal className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                Available for Summer 2026 Internships
-              </span>
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -64,7 +50,7 @@ export function Hero() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="mailto:malikahmadibrahim332@gmail.com"
+                href="https://wa.me/923086772082?text=Hi%20Ahmad%2C%20I%20want%20to%20know..."
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 glass-card text-zinc-900 dark:text-white rounded-xl font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all"
               >
                 Contact Me
@@ -72,7 +58,6 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Image/Avatar Area */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -81,15 +66,12 @@ export function Hero() {
           >
             <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[22rem] lg:h-[22rem] rounded-full p-2 glass-panel">
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 mix-blend-overlay animate-pulse" />
-              {/* Nature Image */}
               <img
                 src={ahmadImage}
                 alt="Ahmad Ibrahim"
                 className="w-full h-full object-cover rounded-full filter contrast-[1.05] drop-shadow-xl ring-4 ring-white/10 dark:ring-white/5"
               />
             </div>
-
-            {/* Floating Badges */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}

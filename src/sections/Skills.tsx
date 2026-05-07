@@ -10,22 +10,16 @@ const SKILLS = [
     items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML/CSS', 'Framer Motion'],
   },
   {
-    category: 'Backend',
-    icon: Server,
-    color: 'from-purple-500 to-indigo-500',
-    items: ['Node.js', 'Express', 'REST APIs', 'JWT Auth'],
-  },
-  {
     category: 'Database',
     icon: Database,
     color: 'from-emerald-500 to-teal-500',
-    items: ['MongoDB', 'MySQL', 'PostgreSQL', 'Entity Framework', 'Mongoose'],
+    items: ['MongoDB', 'MySQL', 'Mongoose'],
   },
   {
     category: 'Tools & DevOps',
     icon: GitBranch,
     color: 'from-orange-500 to-red-500',
-    items: ['Git', 'GitHub', 'Postman', 'Docker (Basics)', 'Vercel', 'VS Code'],
+    items: ['Git', 'GitHub', 'Postman', 'Vercel', 'VS Code'],
   },
 ];
 

@@ -8,10 +8,8 @@ interface SEOProps {
 
 export function useSEO({ title, description, keywords }: SEOProps) {
   useEffect(() => {
-    // Update the document title
     document.title = title;
 
-    // Helper to dynamically create or update meta tags
     const updateMetaTag = (name: string, content: string) => {
       let element = document.querySelector(`meta[name="${name}"]`);
       if (!element) {

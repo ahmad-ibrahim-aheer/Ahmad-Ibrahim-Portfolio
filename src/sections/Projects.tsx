@@ -33,7 +33,6 @@ export function Projects() {
           className="glass-panel rounded-[2rem] overflow-hidden"
         >
           <div className="grid lg:grid-cols-2 gap-0">
-            {/* Image Side */}
             <div className="relative h-64 lg:h-auto overflow-hidden bg-zinc-100 dark:bg-zinc-800">
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/40 to-transparent z-10" />
               <img
@@ -53,7 +52,6 @@ export function Projects() {
               </div>
             </div>
 
-            {/* Content Side */}
             <div className="p-8 lg:p-12 flex flex-col justify-center">
               <div className="shrink-0 mb-6">
                 <span className="text-blue-600 dark:text-blue-400 font-semibold tracking-wider uppercase text-xs mb-2 block">

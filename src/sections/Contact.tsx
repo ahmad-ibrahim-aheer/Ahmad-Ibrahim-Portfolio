@@ -1,38 +1,38 @@
-import { motion } from 'motion/react';
-import { SectionHeader } from '../components/SectionHeader';
-import { Mail, Github, Linkedin, Instagram, Phone } from 'lucide-react';
+import { motion } from "motion/react";
+import { SectionHeader } from "../components/SectionHeader";
+import { Mail, Github, Linkedin, Instagram, Phone } from "lucide-react";
 
 const SOCIALS = [
   {
-    name: 'GitHub',
+    name: "GitHub",
     icon: Github,
-    href: 'https://github.com/ahmad-ibrahim-aheer/',
-    color: 'hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800',
+    href: "https://github.com/ahmad-ibrahim-aheer/",
+    color:
+      "hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800",
   },
   {
-    name: 'LinkedIn',
+    name: "LinkedIn",
     icon: Linkedin,
-    href: 'https://www.linkedin.com/in/ahmad-ibrahim-78385a326/',
-    color: 'hover:text-[#0A66C2] hover:bg-[#0A66C2]/10',
+    href: "https://www.linkedin.com/in/ahmad-ibrahim-78385a326/",
+    color: "hover:text-[#0A66C2] hover:bg-[#0A66C2]/10",
   },
   {
-    name: 'Instagram',
+    name: "Instagram",
     icon: Instagram,
-    href: 'https://www.instagram.com/ahmad_ibrahim_aheer/',
-    color: 'hover:text-[#E4405F] hover:bg-[#E4405F]/10',
+    href: "https://www.instagram.com/ahmad_ibrahim_aheer/",
+    color: "hover:text-[#E4405F] hover:bg-[#E4405F]/10",
   },
   {
-    name: 'WhatsApp',
+    name: "WhatsApp",
     icon: Phone,
-    href: 'https://wa.me/923086772082',
-    color: 'hover:text-[#25D366] hover:bg-[#25D366]/10',
+    href: "https://wa.me/923086772082",
+    color: "hover:text-[#25D366] hover:bg-[#25D366]/10",
   },
 ];
 
 export function Contact() {
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background flourishes */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl text-center pointer-events-none">
         <div className="w-full aspect-square bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen" />
       </div>
@@ -46,23 +46,24 @@ export function Contact() {
           viewport={{ once: true }}
           className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 mb-12 max-w-2xl mx-auto"
         >
-          Whether you have a question, a project opportunity, or just want to say hi, my inbox is always open. I'll try my best to get back to you!
+          Whether you have a question, a project opportunity, or just want to
+          say hi, my inbox is always open. I'll try my best to get back to you!
         </motion.p>
 
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ delay: 0.1 }}
-           className="flex justify-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="flex justify-center mb-16"
         >
-           <a
-              href="mailto:malikahmadibrahim332@gmail.com"
-              className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-medium hover:scale-105 transition-all shadow-xl focus:ring-4 focus:ring-zinc-500/20"
-            >
-              <Mail className="w-5 h-5" />
-              Say Hello
-           </a>
+          <a
+            href="https://wa.me/923086772082?text=Hello.."
+            className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-medium hover:scale-105 transition-all shadow-xl focus:ring-4 focus:ring-zinc-500/20"
+          >
+            <Mail className="w-5 h-5" />
+            Say Hello
+          </a>
         </motion.div>
 
         <motion.div

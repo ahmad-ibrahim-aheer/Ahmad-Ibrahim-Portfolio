@@ -1,14 +1,8 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { BlogPage } from './pages/BlogPage';
-import { Chatbot } from './components/Chatbot';
 
 export default function App() {
   return (
@@ -20,7 +14,6 @@ export default function App() {
           <Route path="/blog" element={<BlogPage />} />
         </Routes>
         <Footer />
-        <Chatbot />
       </div>
     </BrowserRouter>
   );
