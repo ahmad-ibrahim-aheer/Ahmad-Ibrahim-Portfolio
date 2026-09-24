@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowRight, Terminal } from "lucide-react";
+import { ArrowRight, Server } from "lucide-react";
 import ahmadImage from "../components/assets/images/ahmad.jpeg";
 
 export function Hero() {
@@ -79,23 +79,13 @@ export function Hero() {
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-zinc-900/10 dark:bg-white/10 flex items-center justify-center">
-                  <div
-                    className="w-5 h-5 bg-zinc-900 dark:bg-white mask-nextjs"
-                    style={{
-                      maskImage:
-                        "url(https://cdn.simpleicons.org/nextdotjs/000000)",
-                      WebkitMaskImage:
-                        "url(https://cdn.simpleicons.org/nextdotjs/000000)",
-                      maskSize: "contain",
-                      maskRepeat: "no-repeat",
-                    }}
-                  />
+                  <Server aria-hidden="true" className="w-5 h-5 text-zinc-900 dark:text-white" />
                 </div>
                 <div>
                   <p className="text-sm font-bold dark:text-white text-zinc-900">
-                    Next.js
+                    PHP/Laravel
                   </p>
-                  <p className="text-xs text-zinc-500">Framework</p>
+                  <p className="text-xs text-zinc-500">Backend</p>
                 </div>
               </div>
             </motion.div>
@@ -126,7 +116,7 @@ export function Hero() {
                 </div>
                 <div>
                   <p className="text-sm font-bold dark:text-white text-zinc-900">
-                    React.js
+                    React/Next.js
                   </p>
                   <p className="text-xs text-zinc-500">Frontend</p>
                 </div>

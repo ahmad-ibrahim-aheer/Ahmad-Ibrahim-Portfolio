@@ -1,52 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = 'light' | 'dark';
+const STORAGE_KEY = 'portfolio-theme';
+const THEME_EVENT = 'portfolio-theme-change';
+
+function applyTheme(theme: Theme) {
+  const root = document.documentElement;
+  root.classList.toggle('dark', theme === 'dark');
+  root.classList.toggle('light', theme === 'light');
+  root.style.colorScheme = theme;
+}
+
+function subscribe(onChange: () => void) {
+  const onStorage = (event: StorageEvent) => {
+    if (event.key !== STORAGE_KEY && event.key !== null) return;
+    applyTheme(event.newValue === 'light' ? 'light' : 'dark');
+    onChange();
+  };
+  window.addEventListener(THEME_EVENT, onChange);
+  window.addEventListener('storage', onStorage);
+  return () => {
+    window.removeEventListener(THEME_EVENT, onChange);
+    window.removeEventListener('storage', onStorage);
+  };
+}
+
+function getTheme(): Theme {
+  return document.documentElement.classList.contains('light') ? 'light' : 'dark';
+}
+
+function setTheme(theme: Theme) {
+  applyTheme(theme);
+  try {
+    localStorage.setItem(STORAGE_KEY, theme);
+  } catch {
+    // Keep the toggle usable when browser storage is unavailable.
+  }
+  window.dispatchEvent(new Event(THEME_EVENT));
+}
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('portfolio-theme') as Theme | null;
-      if (stored) return stored;
-    }
-    return 'system';
-  });
-
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark'); // Default to dark for that premium feel
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-
-    root.classList.remove('light', 'dark');
-
-    let currentTheme: 'light' | 'dark';
-
-    if (theme === 'system') {
-      currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    } else {
-      currentTheme = theme;
-    }
-
-    setResolvedTheme(currentTheme);
-    root.classList.add(currentTheme);
-    localStorage.setItem('portfolio-theme', theme);
-  }, [theme]);
-
-  // Listen for system changes if strictly in system mode
-  useEffect(() => {
-    if (theme !== 'system') return;
-    
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      const root = window.document.documentElement;
-      root.classList.remove('light', 'dark');
-      const newTheme = mediaQuery.matches ? 'dark' : 'light';
-      root.classList.add(newTheme);
-      setResolvedTheme(newTheme);
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme]);
-
-  return { theme, setTheme, resolvedTheme };
+  const theme = useSyncExternalStore(subscribe, getTheme, () => 'dark' as const);
+  return { theme, setTheme };
 }
