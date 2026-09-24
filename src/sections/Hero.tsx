@@ -1,129 +1,96 @@
-import { motion } from "motion/react";
-import { ArrowRight, Server } from "lucide-react";
-import ahmadImage from "../components/assets/images/ahmad.jpeg";
+import { ArrowDown, ArrowUpRight, Github } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { EASE, HeroDepth } from "../components/Animation";
+import { HeroVisual } from "../components/HeroVisual";
+import { SITE } from "../data/site";
 
 export function Hero() {
+  const reduced = useReducedMotion();
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse" />
-        <div
-          className="absolute top-1/3 right-1/4 w-[28rem] h-[28rem] bg-indigo-500/10 dark:bg-indigo-600/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-      </div>
-
-      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-        <div className="flex flex-col-reverse lg:flex-row items-center gap-16 lg:gap-24">
-          <div className="flex-1 text-center lg:text-left">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-5xl md:text-7xl font-display font-black tracking-tight text-zinc-900 dark:text-white leading-[1.1] mb-6"
-            >
-              Hi, I'm <br className="hidden md:block" />
-              <span className="text-gradient">Ahmad Ibrahim.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto lg:mx-0"
-            >
-              A Web Developer building scalable modern web applications.
-              Currently weaving ideas into code at the University of Sargodha.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
-            >
-              <a
-                href="#projects"
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25 focus:ring-4 focus:ring-blue-500/20"
-              >
-                View Projects
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="https://wa.me/923086772082?text=Hi%20Ahmad%2C%20I%20want%20to%20know..."
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 glass-card text-zinc-900 dark:text-white rounded-xl font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all"
-              >
-                Contact Me
-              </a>
-            </motion.div>
-          </div>
-
+    <section id="home" className="hero">
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="shell hero-layout">
+        <div className="hero-copy">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex-1 flex justify-center lg:justify-end mt-12 lg:mt-0 relative w-full"
+            initial={reduced ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="eyebrow hero-eyebrow"
           >
-            <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[22rem] lg:h-[22rem] rounded-full p-2 glass-panel">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 mix-blend-overlay animate-pulse" />
-              <img
-                src={ahmadImage}
-                alt="Ahmad Ibrahim"
-                className="w-full h-full object-cover rounded-full filter contrast-[1.05] drop-shadow-xl ring-4 ring-white/10 dark:ring-white/5"
-              />
+            <span className="status-dot" />
+            Software developer · AI & ML enthusiast
+          </motion.div>
+          <h1 aria-label="Ahmad Ibrahim">
+            {["Ahmad", "Ibrahim."].map((word, i) => (
+              <span className="word-mask" key={word}>
+                <motion.span
+                  initial={reduced ? false : { y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.12 + i * 0.1,
+                    ease: EASE,
+                  }}
+                >
+                  {word}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+          >
+            <p className="hero-lead">
+              Thoughtful software.
+              <br />
+              <span>Intelligent possibilities.</span>
+            </p>
+            <p className="hero-description">
+              I build modern web experiences and explore what comes next with
+              AI. Turning ideas into scalable applications, from the interface
+              to the backend.
+            </p>
+            <div className="button-row">
+              <a href="#projects" className="button primary">
+                Explore my work <ArrowUpRight size={18} />
+              </a>
+              <a href={SITE.contact} className="button secondary">
+                Let's talk <ArrowUpRight size={18} />
+              </a>
             </div>
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute bottom-6 left-0 md:-left-4 glass-panel px-6 py-4 rounded-2xl hidden sm:block shadow-xl"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-zinc-900/10 dark:bg-white/10 flex items-center justify-center">
-                  <Server aria-hidden="true" className="w-5 h-5 text-zinc-900 dark:text-white" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold dark:text-white text-zinc-900">
-                    PHP/Laravel
-                  </p>
-                  <p className="text-xs text-zinc-500">Backend</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 5,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute top-0 right-0 md:-right-4 glass-panel px-6 py-4 rounded-2xl hidden sm:block shadow-xl"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#61DAFB]/20 flex items-center justify-center">
-                  <div
-                    className="w-5 h-5 bg-[#61DAFB] mask-react"
-                    style={{
-                      maskImage:
-                        "url(https://cdn.simpleicons.org/react/61DAFB)",
-                      WebkitMaskImage:
-                        "url(https://cdn.simpleicons.org/react/61DAFB)",
-                      maskSize: "contain",
-                      maskRepeat: "no-repeat",
-                    }}
-                  />
-                </div>
-                <div>
-                  <p className="text-sm font-bold dark:text-white text-zinc-900">
-                    React/Next.js
-                  </p>
-                  <p className="text-xs text-zinc-500">Frontend</p>
-                </div>
-              </div>
-            </motion.div>
+            <div className="hero-details">
+              <span>Based in Pakistan</span>
+              <span className="tiny-divider" />
+              <a href={SITE.github} target="_blank" rel="noreferrer">
+                <Github size={15} /> GitHub <ArrowUpRight size={13} />
+              </a>
+            </div>
           </motion.div>
         </div>
+        <HeroDepth>
+          <HeroVisual />
+          <div className="scene-label scene-label-top">
+            <span className="status-dot" /> Ideas, connected.
+          </div>
+          <div className="scene-label scene-label-bottom">
+            <span className="mono">01 /</span> SOFTWARE × INTELLIGENCE
+          </div>
+        </HeroDepth>
+      </div>
+      <div className="shell hero-bottom">
+        <a href="#about" className="scroll-cue">
+          <span className="scroll-arrow">
+            <ArrowDown size={15} />
+          </span>
+          Scroll to explore
+        </a>
+        <div className="hero-stack">
+          <span>React/Next.js</span>
+          <span>PHP/Laravel</span>
+          <span>Python & AI</span>
+        </div>
+        <span className="mono hero-index">PORTFOLIO / 2026</span>
       </div>
     </section>
   );

@@ -1,23 +1,26 @@
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from '../hooks/use-theme';
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "../hooks/use-theme";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
-
+  const label =
+    theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
   return (
     <button
       type="button"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="icon-button theme-toggle"
       aria-label={label}
       title={label}
     >
-      {theme === 'dark' ? (
-        <Sun aria-hidden="true" className="w-5 h-5 text-zinc-300" />
-      ) : (
-        <Moon aria-hidden="true" className="w-5 h-5 text-zinc-600" />
-      )}
+      <Sun
+        aria-hidden="true"
+        className={theme === "dark" ? "theme-icon active" : "theme-icon"}
+      />
+      <Moon
+        aria-hidden="true"
+        className={theme === "light" ? "theme-icon active" : "theme-icon"}
+      />
     </button>
   );
 }

@@ -1,117 +1,164 @@
-import { motion } from 'motion/react';
-import { ThemeToggle } from './ThemeToggle';
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
-
-const NAV_LINKS = [
-  { name: 'About', href: '/#about' },
-  { name: 'Skills', href: '/#skills' },
-  { name: 'Projects', href: '/#projects' },
-  { name: 'AI/ML', href: '/#ai-ml' },
-  { name: 'PHP & Laravel', href: '/#php-laravel' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/#contact' },
-];
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useState, useEffect, useRef } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ThemeToggle } from "./ThemeToggle";
+import { NAV_LINKS } from "../data/site";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
   const location = useLocation();
+  const reduced = useReducedMotion();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Handle cross-page hash scrolls reliably
   useEffect(() => {
-    if (location.hash) {
-      setTimeout(() => {
-        const id = location.hash.replace('#', '');
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+    setOpen(false);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-15% 0px -65% 0px", threshold: 0 },
+    );
+    const observed = new Set<Element>();
+    const observeSections = () =>
+      document.querySelectorAll("main section[id]").forEach((section) => {
+        if (!observed.has(section)) {
+          observer.observe(section);
+          observed.add(section);
         }
-      }, 100);
-    }
+      });
+    observeSections();
+    const contentObserver = new MutationObserver(observeSections);
+    contentObserver.observe(document.getElementById("root")!, {
+      childList: true,
+      subtree: true,
+    });
+    if (location.pathname === "/blog") setActive("blog");
+    return () => {
+      observer.disconnect();
+      contentObserver.disconnect();
+    };
   }, [location]);
-
+  useEffect(() => {
+    if (!open) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const menu = menuRef.current;
+    menu?.querySelector<HTMLAnchorElement>("a")?.focus();
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+      if (event.key === "Tab") {
+        const elements = [
+          toggleRef.current,
+          ...Array.from(menu?.querySelectorAll<HTMLElement>("a") ?? []),
+        ].filter(Boolean) as HTMLElement[];
+        const current = elements.indexOf(document.activeElement as HTMLElement);
+        if (event.shiftKey && current <= 0) {
+          event.preventDefault();
+          elements.at(-1)?.focus();
+        } else if (!event.shiftKey && current === elements.length - 1) {
+          event.preventDefault();
+          elements[0]?.focus();
+        }
+      }
+    };
+    const desktop = window.matchMedia("(min-width: 1100px)");
+    const onResize = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    document.addEventListener("keydown", keydown);
+    desktop.addEventListener("change", onResize);
+    return () => {
+      document.body.style.overflow = original;
+      document.removeEventListener("keydown", keydown);
+      desktop.removeEventListener("change", onResize);
+    };
+  }, [open]);
+  const closeMenu = () => {
+    setOpen(false);
+    toggleRef.current?.focus();
+  };
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'py-3' : 'py-5'
-      }`}
-    >
-      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
-        <div className={`flex items-center justify-between mx-auto rounded-2xl px-6 py-3 transition-all duration-500 ${
-            isScrolled ? 'glass-panel' : 'bg-transparent'
-        }`}>
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xl group-hover:rotate-12 transition-transform duration-300">
-              A
-            </div>
-            <span className="font-display font-bold text-lg tracking-tight dark:text-zinc-100 text-zinc-900">
-              Ibrahim<span className="text-blue-600">.</span>
-            </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-6">
-            <ul className="flex items-center gap-6">
-              {NAV_LINKS.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="h-5 w-px bg-zinc-200 dark:bg-zinc-800" />
-            <ThemeToggle />
-          </nav>
-
-          {/* Mobile Toggle */}
-          <div className="flex lg:hidden items-center gap-4">
-            <ThemeToggle />
-            <button
-              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-navigation"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-zinc-600 dark:text-zinc-300 focus:outline-none"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <motion.div
-          id="mobile-navigation"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="lg:hidden glass-panel absolute top-full left-4 right-4 mt-2 rounded-2xl p-4 flex flex-col gap-2 max-h-[calc(100dvh-7rem)] overflow-y-auto shadow-2xl"
-        >
+    <header className={`navbar ${scrolled ? "is-scrolled" : ""}`}>
+      <div className="nav-panel">
+        <Link to="/" className="brand" aria-label="Ahmad Ibrahim home">
+          <span className="brand-mark">
+            ai<span>.</span>
+          </span>
+          <span>
+            Ahmad Ibrahim<span className="brand-dot">.</span>
+          </span>
+        </Link>
+        <nav aria-label="Main navigation" className="desktop-nav">
           {NAV_LINKS.map((link) => (
             <Link
-              key={link.name}
+              key={link.id}
               to={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-zinc-800 dark:text-zinc-200 font-medium py-2 px-4 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/50"
+              className={active === link.id ? "active" : ""}
+              aria-current={active === link.id ? "location" : undefined}
             >
               {link.name}
             </Link>
           ))}
-        </motion.div>
-      )}
+        </nav>
+        <div className="nav-actions">
+          <ThemeToggle />
+          <button
+            ref={toggleRef}
+            type="button"
+            className="icon-button menu-toggle"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X size={21} /> : <Menu size={21} />}
+          </button>
+        </div>
+      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            ref={menuRef}
+            id="mobile-navigation"
+            className="mobile-menu"
+            initial={{ opacity: 0, y: reduced ? 0 : -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: reduced ? 0 : -8 }}
+            transition={{ duration: 0.2 }}
+          >
+            <nav aria-label="Mobile navigation">
+              {NAV_LINKS.map((link, index) => (
+                <Link
+                  key={link.id}
+                  to={link.href}
+                  onClick={closeMenu}
+                  aria-current={active === link.id ? "location" : undefined}
+                >
+                  <span className="mono">0{index + 1}</span>
+                  {link.name}
+                  <ArrowUpRight size={20} />
+                </Link>
+              ))}
+            </nav>
+            <p>SOFTWARE × INTELLIGENCE</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -1,110 +1,106 @@
-import { motion } from 'motion/react';
-import { SectionHeader } from '../components/SectionHeader';
-import { ExternalLink, Github, CheckCircle2 } from 'lucide-react';
-
-const FEATURED_PROJECT = {
-  title: 'Multi-Tenant Team Workspace & Payroll SaaS',
-  description: 'A comprehensive SaaS-style application designed for small to medium businesses to manage their workforce, projects, and payroll from a single scalable platform.',
-  features: [
-    'Multi-company workspace isolation',
-    'Role-based access control (Admin vs. Employee)',
-    'Jira-like time tracking & task logging',
-    'Integrated Slack-style team chat',
-    'Automated, dynamic payroll calculations',
-    'Monthly invoice & report generation',
-  ],
-  stack: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'MongoDB'],
-  liveUrl: 'https://core-flow-saas-app.vercel.app/',
-  githubUrl: 'https://github.com/ahmad-ibrahim-aheer/',
-  image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop'
-};
+import { ArrowUpRight, Github, Check } from "lucide-react";
+import { SectionHeader } from "../components/SectionHeader";
+import { Reveal, TiltCard } from "../components/Animation";
+import { FEATURED_PROJECT as project } from "../data/portfolio";
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
-        <SectionHeader title="Featured Work" subtitle="Portfolio" />
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="glass-panel rounded-[2rem] overflow-hidden"
-        >
-          <div className="grid lg:grid-cols-2 gap-0">
-            <div className="relative h-64 lg:h-auto overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/40 to-transparent z-10" />
+    <section id="projects" className="section">
+      <div className="shell">
+        <SectionHeader
+          number="03"
+          subtitle="Selected work"
+          title="Built to solve. Designed to scale."
+          description="From a complex workflow to a considered product. A closer look at what I've been building."
+        />
+        <Reveal variant="scale">
+          <article className="featured-project">
+            <TiltCard className="project-visual">
               <img
-                src={FEATURED_PROJECT.image}
-                alt={FEATURED_PROJECT.title}
-                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                src={project.image.replace("w=2426", "w=1100")}
+                alt="Analytics workspace illustration for the team and payroll platform"
+                width="1100"
+                height="740"
+                loading="lazy"
               />
-              <div className="absolute bottom-6 left-6 z-20 flex gap-3 flex-wrap">
-                {FEATURED_PROJECT.stack.slice(0, 3).map(tech => (
-                  <span key={tech} className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold text-white border border-white/20">
-                    {tech}
-                  </span>
+              <div className="project-visual-shade" />
+              <div className="project-window" aria-hidden="true">
+                <div className="window-top">
+                  <span />
+                  <span />
+                  <span />
+                  <p>CoreFlow / workspace</p>
+                </div>
+                <div className="window-content">
+                  <span className="mono">ONE CONNECTED WORKSPACE</span>
+                  <strong>
+                    Teams. Projects.
+                    <br />
+                    Payroll.
+                  </strong>
+                  <div className="workspace-modules">
+                    <span>Workspace</span>
+                    <span>Time tracking</span>
+                    <span>Team chat</span>
+                    <span>Payroll</span>
+                  </div>
+                  <div className="window-bottom">
+                    <span className="status-dot" /> Multi-tenant architecture{" "}
+                    <ArrowUpRight size={20} />
+                  </div>
+                </div>
+              </div>
+              <span className="visual-caption">
+                PRODUCT CONCEPT / FULL-STACK APPLICATION
+              </span>
+            </TiltCard>
+            <div className="project-info">
+              <div className="eyebrow">
+                <span className="status-dot" />
+                Featured project <span className="mono project-no">01</span>
+              </div>
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <ul className="project-features">
+                {project.features.map((feature) => (
+                  <li key={feature}>
+                    <Check size={15} aria-hidden="true" />
+                    {feature}
+                  </li>
                 ))}
-                <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold text-white border border-white/20">
-                  +{FEATURED_PROJECT.stack.length - 3}
-                </span>
-              </div>
-            </div>
-
-            <div className="p-8 lg:p-12 flex flex-col justify-center">
-              <div className="shrink-0 mb-6">
-                <span className="text-blue-600 dark:text-blue-400 font-semibold tracking-wider uppercase text-xs mb-2 block">
-                  Featured Project
-                </span>
-                <h3 className="text-2xl lg:text-3xl font-display font-bold dark:text-white text-zinc-900">
-                  {FEATURED_PROJECT.title}
-                </h3>
-              </div>
-
-              <p className="text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed">
-                {FEATURED_PROJECT.description}
-              </p>
-
-              <div className="space-y-3 mb-10 text-sm md:text-base">
-                {FEATURED_PROJECT.features.map((feature, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + (i * 0.1) }}
-                    className="flex items-start gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-                    <span className="text-zinc-700 dark:text-zinc-300">{feature}</span>
-                  </motion.div>
+              </ul>
+              <ul className="tag-list">
+                {project.stack.map((tech) => (
+                  <li key={tech}>{tech}</li>
                 ))}
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 mt-auto">
+              </ul>
+              <div className="button-row">
                 <a
-                  href={FEATURED_PROJECT.liveUrl}
+                  href={project.liveUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/20"
+                  rel="noreferrer"
+                  className="button primary"
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  Live Preview
+                  Live demo <ArrowUpRight size={17} />
                 </a>
                 <a
-                  href={FEATURED_PROJECT.githubUrl}
+                  href={project.githubUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 glass-card text-zinc-900 dark:text-white rounded-xl font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors"
+                  rel="noreferrer"
+                  className="button secondary"
                 >
-                  <Github className="w-4 h-4" />
-                  Source Code
+                  <Github size={17} /> Source code
                 </a>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </article>
+        </Reveal>
+        <div className="project-note">
+          <span>More ways I turn ideas into code</span>
+          <a className="text-link" href="#ai-ml">
+            Explore AI & machine learning <ArrowUpRight size={16} />
+          </a>
+        </div>
       </div>
     </section>
   );
