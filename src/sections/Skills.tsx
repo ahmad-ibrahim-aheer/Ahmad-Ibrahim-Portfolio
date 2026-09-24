@@ -10,6 +10,12 @@ const SKILLS = [
     items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML/CSS', 'Framer Motion'],
   },
   {
+    category: 'Backend',
+    icon: Server,
+    color: 'from-violet-500 to-indigo-500',
+    items: ['PHP', 'Laravel', 'MySQL', 'MVC Architecture', 'CRUD Operations', 'Authentication'],
+  },
+  {
     category: 'Database',
     icon: Database,
     color: 'from-emerald-500 to-teal-500',

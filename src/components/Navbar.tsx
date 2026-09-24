@@ -8,6 +8,8 @@ const NAV_LINKS = [
   { name: 'About', href: '/#about' },
   { name: 'Skills', href: '/#skills' },
   { name: 'Projects', href: '/#projects' },
+  { name: 'AI/ML', href: '/#ai-ml' },
+  { name: 'PHP & Laravel', href: '/#php-laravel' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/#contact' },
 ];
@@ -56,7 +58,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             <ul className="flex items-center gap-6">
               {NAV_LINKS.map((link) => (
                 <li key={link.name}>
@@ -74,9 +76,12 @@ export function Navbar() {
           </nav>
 
           {/* Mobile Toggle */}
-          <div className="flex md:hidden items-center gap-4">
+          <div className="flex lg:hidden items-center gap-4">
             <ThemeToggle />
             <button
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-zinc-600 dark:text-zinc-300 focus:outline-none"
             >
@@ -89,10 +94,11 @@ export function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <motion.div
+          id="mobile-navigation"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden glass-panel absolute top-full left-4 right-4 mt-2 rounded-2xl p-4 flex flex-col gap-4 shadow-2xl"
+          className="lg:hidden glass-panel absolute top-full left-4 right-4 mt-2 rounded-2xl p-4 flex flex-col gap-2 max-h-[calc(100dvh-7rem)] overflow-y-auto shadow-2xl"
         >
           {NAV_LINKS.map((link) => (
             <Link
