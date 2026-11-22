@@ -5,29 +5,18 @@ import { Reveal } from "../components/Animation";
 import { SectionHeader } from "../components/SectionHeader";
 import "./GitHubActivity.css";
 
-type ContributionDay = { date: string; count: number; level: number };
 type ContributionData = {
   username: string;
   totalContributions: number;
   updatedAt?: string;
-  days: ContributionDay[];
+  days: unknown[];
 };
 
-const COLORS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"];
 const EMPTY_DATA: ContributionData = {
   username: "ahmad-ibrahim-aheer",
   totalContributions: 0,
   days: [],
 };
-
-function formatDate(date: string) {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${date}T12:00:00Z`));
-}
 
 function ContributionScene() {
   return (
@@ -52,10 +41,11 @@ export function GitHubActivity() {
         if (active && Array.isArray(payload.days)) setData(payload);
       })
       .catch(() => {
-        // Keep the empty calendar as a graceful fallback.
-      })
-;
-    return () => { active = false; };
+        // Keep the contribution total at zero if the data feed is unavailable.
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const totalLabel = useMemo(
@@ -70,7 +60,7 @@ export function GitHubActivity() {
           number="03"
           subtitle="Open-source activity"
           title="Consistency, one commit at a time."
-          description="A living snapshot of my GitHub contributions over the past year."
+          description="A living snapshot of my GitHub activity."
         />
         <Reveal className="contribution-card">
           <div className="contribution-card-top">
@@ -93,7 +83,9 @@ export function GitHubActivity() {
           <div className="contribution-card-footer">
             <span>Data from GitHub contribution history</span>
             {data.updatedAt && (
-              <span>Updated {new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(data.updatedAt))}</span>
+              <span>
+                Updated {new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(data.updatedAt))}
+              </span>
             )}
           </div>
         </Reveal>
