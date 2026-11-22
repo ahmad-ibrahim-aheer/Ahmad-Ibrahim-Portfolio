@@ -5,6 +5,7 @@ import { Projects } from "../sections/Projects";
 import { AIML, PHPLaravel } from "../sections/Expertise";
 import { Blog } from "../sections/Blog";
 import { Contact } from "../sections/Contact";
+import { GitHubActivity } from "../sections/GitHubActivity";
 import { useSEO } from "../hooks/useSEO";
 import { SITE } from "../data/site";
 import { usePageNavigation } from "../hooks/usePageNavigation";
@@ -24,6 +25,7 @@ export function Home() {
       <About />
       <Skills />
       <Projects />
+      <GitHubActivity />
       <AIML />
       <PHPLaravel />
       <Blog />
