@@ -74,7 +74,7 @@ function ContributionCanvas({
     const yOffset = top + Math.max(0, (height - top - bottom - gridHeight) / 2);
 
     ctx.font = "10px Geist, sans-serif";
-    ctx.fillStyle = "var(--muted)";
+    ctx.fillStyle = getComputedStyle(wrap).getPropertyValue("--muted").trim() || "#888";
     ctx.textAlign = "left";
     ["Mon", "", "Wed", "", "Fri", "", ""].forEach((label, row) => {
       if (label) ctx.fillText(label, 0, yOffset + row * (cell + gap) + cell * 0.78);
