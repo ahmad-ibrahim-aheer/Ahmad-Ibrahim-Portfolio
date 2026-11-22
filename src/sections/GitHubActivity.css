@@ -1,0 +1,154 @@
+.github-activity-section {
+  overflow: hidden;
+}
+.contribution-card {
+  padding: clamp(20px, 3vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.contribution-card-top,
+.contribution-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.contribution-total {
+  font-size: 15px;
+  color: var(--text);
+}
+.contribution-total strong {
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  font-weight: 650;
+}
+.contribution-caption,
+.contribution-card-footer {
+  color: var(--muted);
+  font-size: 11px;
+}
+.contribution-profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  transition: color 180ms ease;
+}
+.contribution-profile-link:hover {
+  color: var(--accent);
+}
+.contribution-visual {
+  margin-top: 24px;
+}
+.contribution-canvas-wrap {
+  width: 100%;
+  height: 154px;
+  position: relative;
+  touch-action: pan-y;
+}
+.contribution-canvas-wrap canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+.contribution-tooltip {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 3px;
+  min-width: 148px;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  pointer-events: none;
+  font-size: 11px;
+}
+.contribution-tooltip span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.contribution-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 13px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.contribution-legend-cell {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+.contribution-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 14px;
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  transition: color 180ms ease, background 180ms ease;
+}
+.contribution-replay:hover {
+  color: var(--text);
+  background: var(--card-soft);
+}
+.contribution-card-footer {
+  padding-top: 18px;
+  margin-top: 18px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+}
+
+@media (max-width: 640px) {
+  .contribution-card {
+    padding: 18px 14px;
+  }
+  .contribution-scene {
+    height: 260px;
+  }
+  .contribution-card-top {
+    align-items: flex-start;
+  }
+  .contribution-profile-link {
+    font-size: 0;
+    gap: 4px;
+  }
+  .contribution-profile-link svg {
+    width: 17px;
+    height: 17px;
+  }
+  .contribution-legend {
+    gap: 4px;
+  }
+  .contribution-legend-cell {
+    width: 9px;
+    height: 9px;
+  }
+  .contribution-replay {
+    margin-left: 5px;
+  }
+  .contribution-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contribution-profile-link,
+  .contribution-replay {
+    transition: none;
+  }
+}
