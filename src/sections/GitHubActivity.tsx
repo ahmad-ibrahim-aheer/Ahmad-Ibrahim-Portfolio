@@ -40,7 +40,6 @@ function ContributionScene() {
 
 export function GitHubActivity() {
   const [data, setData] = useState<ContributionData>(EMPTY_DATA);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -55,9 +54,7 @@ export function GitHubActivity() {
       .catch(() => {
         // Keep the empty calendar as a graceful fallback.
       })
-      .finally(() => {
-        if (active) setLoaded(true);
-      });
+;
     return () => { active = false; };
   }, []);
 
